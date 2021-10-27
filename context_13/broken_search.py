@@ -31,7 +31,7 @@ def test():
 
 
 if __name__ == '__main__':
-    _ = int(input())
+    _ = input()
     target = int(input())
     *nums, = map(int, input().split())
     print(broken_search(nums, target))
