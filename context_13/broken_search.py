@@ -10,7 +10,8 @@ def binary_search(nums, target, left, right):
         return binary_search(nums, target, mid + 1, right)
 
 
-def broken_search(nums, target, array_legth) -> int:
+def broken_search(nums, target) -> int:
+    array_legth = len(nums)
     left = 0
     right = array_legth - 1
     if array_legth == 1:
@@ -30,7 +31,7 @@ def test():
 
 
 if __name__ == '__main__':
-    array_legth = int(input())
+    _ = int(input())
     target = int(input())
     *nums, = map(int, input().split())
-    print(broken_search(nums, target, array_legth))
+    print(broken_search(nums, target))
