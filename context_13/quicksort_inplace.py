@@ -1,15 +1,29 @@
-# https://contest.yandex.ru/contest/24735/run-report/55687014/
+# https://contest.yandex.ru/contest/24735/run-report/55705349/
 import random
 
 
 def quicksort(array):
-    if len(array) <= 1:
-        return array
-    pivot = random.choice(array)
-    less_values = [n for n in array if n < pivot]
-    center_value = [pivot] * array.count(pivot)  # в целом лишний код.
-    greater_value = [n for n in array if n > pivot]
-    return quicksort(less_values) + center_value + quicksort(greater_value)
+
+    def quicksort_inplace(array, start, end):
+        if start >= end:
+            return
+        i, j = start, end
+        pivot = array[random.randint(start, end)]
+        while i <= j:
+            while array[i] < pivot:
+                i += 1
+            while array[j] > pivot:
+                j -= 1
+            if i <= j:
+                array[i], array[j] = array[j], array[i]
+                i, j = i + 1, j - 1
+        quicksort_inplace(array, start, j)
+        quicksort_inplace(array, i, end)
+
+    start = 0
+    end = len(array) - 1
+    quicksort_inplace(array, start, end)
+    return array
 
 
 if __name__ == '__main__':
