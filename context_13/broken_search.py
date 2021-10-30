@@ -1,3 +1,4 @@
+# https://contest.yandex.ru/contest/24735/run-report/55550077/
 def broken_search(nums, target) -> int:
     left = 0
     right = len(nums) - 1

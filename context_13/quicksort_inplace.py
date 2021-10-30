@@ -1,3 +1,4 @@
+# https://contest.yandex.ru/contest/24735/run-report/55687014/
 import random
 
 
