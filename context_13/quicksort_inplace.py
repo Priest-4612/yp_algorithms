@@ -2,43 +2,20 @@
 import random
 
 
-def to_participant(login, count_problem, amount_fine):
-    return (-int(count_problem), int(amount_fine), login)
-
-
-def subpart_partition(array, start, end, paviot_index):
-    if not (start <= paviot_index <= end):
-        raise ValueError('paviot_index должна быть между start и end')
-    array[start], array[paviot_index] = array[paviot_index], array[start]
-    paviot = array[start]
-    partition = start + 1
-    curren = start + 1
-    while curren <= end:
-        if array[curren] <= paviot:
-            array[curren], array[partition] = array[partition], array[curren]
-            partition += 1
-        curren += 1
-
-    array[start], array[partition - 1] = array[partition - 1], array[start]
-    return partition - 1
-
-
-def quicksort_inplace(array, start=0, end=None):
-    if end is None:
-        end = len(array) - 1
-    if end - start < 1:
-        return
-
-    paviot_index = random.randint(start, end)
-    partition = subpart_partition(array, start, end, paviot_index)
-    quicksort_inplace(array, start, partition - 1)
-    quicksort_inplace(array, partition + 1, end)
+def quicksort(array):
+    if len(array) <= 1:
+        return array
+    pivot = random.choice(array)
+    less_values = [n for n in array if n < pivot]
+    center_value = [pivot] * array.count(pivot)  # в целом лишний код.
+    greater_value = [n for n in array if n > pivot]
+    return quicksort(less_values) + center_value + quicksort(greater_value)
 
 
 if __name__ == '__main__':
     count_participants = int(input())
-    entries = [to_participant(*input().split())
-               for _ in range(count_participants)]
-    quicksort_inplace(entries)
-    result = (login for _, _, login in entries)
-    print(*result, sep='\n')
+    entries = [input().split() for _ in range(count_participants)]
+    for index, value in enumerate(entries):
+        entries[index] = (-int(value[1]), int(value[2]), value[0])
+    for item in quicksort(entries):
+        print(item[2])
