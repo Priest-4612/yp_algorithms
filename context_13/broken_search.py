@@ -1,4 +1,4 @@
-# https://contest.yandex.ru/contest/24735/run-report/55703119/
+# https://contest.yandex.ru/contest/24735/run-report/55746578/
 def broken_search(nums, target) -> int:
     left = 0
     right = len(nums) - 1
@@ -8,12 +8,12 @@ def broken_search(nums, target) -> int:
         if mid_element == target:
             return mid
         if nums[left] <= mid_element:
-            if target < mid_element and nums[left] <= target:
+            if nums[left] <= target < mid_element:
                 right = mid - 1
             else:
                 left = mid + 1
         else:
-            if mid_element < target and target <= nums[right]:
+            if mid_element < target <= nums[right]:
                 left = mid + 1
             else:
                 right = mid - 1

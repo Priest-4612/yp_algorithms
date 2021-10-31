@@ -1,35 +1,43 @@
-# https://contest.yandex.ru/contest/24735/run-report/55705349/
+# https://contest.yandex.ru/contest/24735/run-report/55747036/
 import random
 
 
 def quicksort(array):
 
-    def quicksort_inplace(array, start, end):
+    def quicksort_inplace(start, end):
         if start >= end:
             return
-        i, j = start, end
+        increase, decline = start, end
         pivot = array[random.randint(start, end)]
-        while i <= j:
-            while array[i] < pivot:
-                i += 1
-            while array[j] > pivot:
-                j -= 1
-            if i <= j:
-                array[i], array[j] = array[j], array[i]
-                i, j = i + 1, j - 1
-        quicksort_inplace(array, start, j)
-        quicksort_inplace(array, i, end)
+        while increase <= decline:
+            while array[increase] < pivot:
+                increase += 1
+            while pivot < array[decline]:
+                decline -= 1
+            if increase <= decline:
+                array[increase], array[decline] = array[decline], \
+                                                  array[increase]
+                increase, decline = increase + 1, decline - 1
+        quicksort_inplace(start, decline)
+        quicksort_inplace(increase, end)
 
-    start = 0
-    end = len(array) - 1
-    quicksort_inplace(array, start, end)
+    quicksort_inplace(0, len(array) - 1)
     return array
 
 
 if __name__ == '__main__':
-    count_participants = int(input())
-    entries = [input().split() for _ in range(count_participants)]
-    for index, value in enumerate(entries):
-        entries[index] = (-int(value[1]), int(value[2]), value[0])
-    for item in quicksort(entries):
-        print(item[2])
+    print(
+        *(
+            login
+            for _, _, login
+            in quicksort(
+                [
+                    (lambda login, count_problem, amount_fine:
+                        (-int(count_problem), int(amount_fine), login))
+                    (*input().split())
+                    for _ in range(int(input()))
+                ]
+            )
+        ),
+        sep='\n'
+    )
