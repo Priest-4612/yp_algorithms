@@ -27,17 +27,12 @@ def quicksort(array):
 
 if __name__ == '__main__':
     print(
-        *(
-            login
-            for _, _, login
-            in quicksort(
-                [
-                    (lambda login, count_problem, amount_fine:
-                        (-int(count_problem), int(amount_fine), login))
-                    (*input().split())
-                    for _ in range(int(input()))
-                ]
-            )
-        ),
+        *(login for _, _, login in quicksort([
+            (lambda login, count_problem, amount_fine:
+                (-int(count_problem), int(amount_fine), login)
+            )(
+                *input().split()
+            ) for _ in range(int(input()))
+        ])),
         sep='\n'
     )
